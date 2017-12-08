@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tammy Insta</title>
+</head>
+ <link rel="shortcut icon" type="image/x-icon" href="https://scontent.cdninstagram.com/t51.2885-19/s150x150/24331654_276251309564416_7951730278907510784_n.jpg" sizes="10x10">
+<body>
+	<style type="text/css">
+		.button-arrow {
+		    background-color: #a6acb2;
+		    padding: 0px 8px 3px 8px;
+		    color: #fff;
+		    font-size: 20px;
+		    -moz-transition: all .3s ease-in-out;
+		    -o-transition: all .3s ease-in-out;
+		    -webkit-transition: all .3s ease-in-out;
+		    transition: all .3s ease-in-out;
+		    outline: 0;
+		}
+		img{
+			border-radius: 50%;
+		}
+		.search-a-tag{
+			cursor: pointer;
+		}
+	</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/dirPagination.js"></script>
+
+<center>
+	<img src="<%= dp %>"><br/>
+	<h1><%= username %></h1>
+</center>
+
+<h2><%= name %></h2>
+<p><%= bio %></p>
+
+<div ng-app="myInstagram" ng-controller="myCtrl">
+	<div class="col-xs-12">
+		<div class="col-xs-6">
+			<h3>Search a tag</h3>
+			<form class="form-inline" ng-submit="myFunc()">
+				<input type="input" ng-model="search" name="tag" id="tag" ng-keyup="$event.keyCode == 13 ? getTags() : null" placeholder="eg: flower">
+				<input type="button" class="search-a-tag" name="Search" ng-click="getTags()" value="Search">
+			</form>
+		</div>
+		<div class="col-xs-6 pagination" style="float: right;">
+			<div class="summary" ng-if="images.length != null"> 
+			    <!--Showing-->
+			    <b> {{ (((currentPage - 1) * perPage) + 1) }} - <span ng-if="(images).length < (currentPage * perPage)"> {{ (images).length }} </span> <span ng-if="(images).length > (currentPage * perPage)"> {{ currentPage * perPage }} </span> </b> of <b> {{(images).length}} </b>
+			    <!--items-->
+			    &nbsp;<a class="button-arrow"  href="" ng-click="pageChanged(currentPage - 1)" >‹</a> <a class="button-arrow" href="" ng-click="pageChanged(currentPage + 1)" >›</a> 
+			</div>
+		</div>
+	</div><br><br>
+	<div class="col-xs-12">
+		<div class="row target main-content" dir-paginate="image in images|itemsPerPage:perPage" item="image" current-page="currentPage">
+			<div class="col-xs-12 " style="text-align: center;">
+				<div class="col-xs-2">{{image.name}}</div>
+				<div class="col-xs-2"><img src="{{image.profile}}" width="100px"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="/js/getTags.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>

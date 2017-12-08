@@ -1,0 +1,5 @@
+{
+	"clientId": "your client Id from instagram",
+	"clientSecret": "Client secret from instagram",
+	"redirectUri": "http://localhost:5000/getAccessToken"
+}
